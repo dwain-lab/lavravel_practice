@@ -12,6 +12,8 @@
 <div id="page-loader">
     <div class="loader-icon fa fa-spin colored-border"></div>
 </div>
+
+</div>
     <!-- /LOADER TEMPLATE -->
 
     @include('post.layouts.include._topbar')

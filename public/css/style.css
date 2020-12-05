@@ -101,6 +101,20 @@ h6 {
   font-size: .75rem;
 }
 
+.nav-bar-login {
+    font-family: "Muli", sans-serif;
+    font-size: .85rem;
+    color: white;
+    padding-left: 1rem ;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+a.nav-bar-login:hover {
+    color: red;
+}
+
+
 .lead {
   font-size: 1.0625rem;
   font-weight: 300;
@@ -1376,7 +1390,7 @@ CONTACT PAGE
 }
 
 .current-year {
-  color: #21c87a !important;
+  color: red !important;
 }
 
 /*-----------------------------

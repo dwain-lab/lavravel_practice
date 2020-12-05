@@ -14,14 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('post.index');
-});
+})->name('home');
 
 Route::get('/about', function () {
     return view('post.about');
 })->name('about');
 
+Route::get('/welcome', function () {
+
+    return view('welcome');
+});
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

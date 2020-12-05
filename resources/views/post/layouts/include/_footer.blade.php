@@ -108,7 +108,7 @@
                 <div class="col-lg-12">
                     <!-- Copyright -->
                     <p class="footer-copy ">
-                        &copy; Copyright <span class="current-year">Themefisher</span> All rights reserved.
+                        &copy; Copyright {{date("Y")}} <span class="current-year">Dwain</span> All rights reserved.
                     </p>
                 </div>
             </div> <!-- / .row -->

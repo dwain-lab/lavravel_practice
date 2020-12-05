@@ -19,7 +19,7 @@
                                 Home
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarWelcome">
-                                 <a class="dropdown-item " href="{{URL::to('/')}}">
+                                 <a class="dropdown-item " href="{{URL::to('home')}}">
                                     Home
                                 </a>
                                 {{-- <a class="dropdown-item " href="index-2.html">

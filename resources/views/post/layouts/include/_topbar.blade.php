@@ -7,18 +7,42 @@
                         <span class="ml-2">69 1/4 Western Highway, Belize, Cayo, San Ignacio</span>
                     </div>
                 </div>
-{{--
+
                 <div class="col-lg-4 ml-lg-auto col-md-6">
-                    <ul class="d-flex list-unstyled header-socials float-lg-right">
+                    {{-- <ul class="d-flex list-unstyled header-socials float-lg-right">
                         <li><a href="#"> <i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="#"> <i class="fab fa-twitter"></i></a></li>
                         <li><a href="#"> <i class="fab fa-pinterest-p"></i></a></li>
                         <li><a href="#"> <i class="fab fa-linkedin"></i></a></li>
                     </ul> --}}
+                    @if (Route::has('login'))
+                        @auth
+                            <p class="h5">Welcome {{Auth::user()->name}}
+                                <a class="nav-bar-login" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                             </a>
+
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                 @csrf
+                             </form>
+
+                            </p>
+
+                        @else
+                            <a href="{{ route('login') }}" class="nav-bar-login">Login</a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="nav-bar-login">Register</a>
+                            @endif
+                        @endauth
+                @endif
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="logo-bar d-none d-md-block d-lg-block bg-light">
         <div class="container">
@@ -26,7 +50,7 @@
                 <div class="col-lg-2">
                     <div class="logo d-none d-lg-block">
                         <!-- Brand -->
-                        <a class="navbar-brand js-scroll-trigger" href="index.html">
+                        <a class="navbar-brand js-scroll-trigger" href="{{URL::to('home')}}">
                             <h2>@yield('page')</h2>
                         </a>
                     </div>
