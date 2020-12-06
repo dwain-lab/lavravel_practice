@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-sm-6">
+                 {{-- <div class="col-lg-2 col-sm-6">
                     <div class="footer-widget">
                         <h3>Socials</h3>
                         <!-- Links -->
@@ -100,8 +100,8 @@
                             </a></li>
                         </ul>
                     </div>
-                </div>
-            </div> <!-- / .row -->
+                </div> --}}
+            </div> <!-- / .row --> --}}
 
 
             <div class="row text-right pt-5">

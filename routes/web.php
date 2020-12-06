@@ -45,19 +45,29 @@ Route::get('/search', 'App\Http\Controllers\PostController@search')->name('searc
 
 Route::resource('/post','App\Http\Controllers\PostController');
 
-Route::get('/perma',function () {
+// Route::get('/perma',function () {
 
 
-    //     // $role = Role::findOrFail(3);
-//     // $role->givePermissionTo(['view models','edit models']);
+//     //     // $role = Role::findOrFail(3);
+// //     // $role->givePermissionTo(['view models','edit models']);
 
-    $user = User::findOrFail(2);
-    $user->assignRole(['viewer']);
-//     $user = User::findOrFail(1);
-//     $user->givePermissionTo('view models');
+//     $user = User::findOrFail(2);
+//     $user->assignRole(['viewer']);
+// //     $user = User::findOrFail(1);
+// //     $user->givePermissionTo('view models');
 
-// $user = User::findOrFail(2);
-// $user->revokePermissionTo('view models');
+// // $user = User::findOrFail(2);
+// // $user->revokePermissionTo('view models');
 
-// return 'hello';
- });
+// // return 'hello';
+//  });
+
+Route::get('/create-post', function () {
+
+    Post::create(['title'=>'Java', 'description'=>'Java Post']);
+    Post::create(['title'=>'PHP', 'description'=>'PHP Post']);
+    Post::create(['title'=>'Dwain', 'description'=>'Dwain Post']);
+    Post::create(['title'=>'Hello World', 'description'=>'Hello World Post']);
+    Post::create(['title'=>'Today', 'description'=>'Today Post']);
+
+});

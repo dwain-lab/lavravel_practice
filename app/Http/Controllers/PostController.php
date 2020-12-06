@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class PostController extends Controller
@@ -24,8 +25,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        session()->forget('search');
         $posts = Post::latest('updated_at')->paginate(10);
-
         return view('post.post-table', compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
@@ -116,16 +117,17 @@ class PostController extends Controller
 
     public function search(Request $request) {
 
-        // dd($request);
-
         $search = $request->search;
-       // return $search;
         $posts = Post::where('title','like', '%'.$search.'%')
             ->orWhere('description','like', '%'.$search.'%')
             ->orderBy('id')->paginate(5);
 
-        return view('post.post-table', compact('posts'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+        $count = count($posts);
 
+        // return count($posts);
+
+       return view('post.post-table', compact('posts'))
+            ->with('i', (request()->input('page', 1) - 1) * 5)
+            ->with('search', session(['search' => $count]));
     }
 }
