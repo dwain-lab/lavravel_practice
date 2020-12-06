@@ -45,17 +45,19 @@ Route::get('/search', 'App\Http\Controllers\PostController@search')->name('searc
 
 Route::resource('/post','App\Http\Controllers\PostController');
 
- Route::get('/perma',function () {
+Route::get('/perma',function () {
 
 
     //     // $role = Role::findOrFail(3);
 //     // $role->givePermissionTo(['view models','edit models']);
 
-//     // $user = User::findOrFail(1);
-//     // $user->assignRole(['editor']);
+    $user = User::findOrFail(2);
+    $user->assignRole(['viewer']);
 //     $user = User::findOrFail(1);
 //     $user->givePermissionTo('view models');
 
-$user = User::findOrFail(1);
-$user->revokePermissionTo('view models');
+// $user = User::findOrFail(2);
+// $user->revokePermissionTo('view models');
+
+// return 'hello';
  });

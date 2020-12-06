@@ -116,7 +116,10 @@ class PostController extends Controller
 
     public function search(Request $request) {
 
+        // dd($request);
+
         $search = $request->search;
+       // return $search;
         $posts = Post::where('title','like', '%'.$search.'%')
             ->orWhere('description','like', '%'.$search.'%')
             ->orderBy('id')->paginate(5);

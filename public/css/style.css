@@ -1994,7 +1994,15 @@ a.page-link:hover {
 
 .search-inline {
     float: right;
-    vertical-align: bottom;
-    width: 30%;
+    display: inline-flex;
 }
+
+.form-control-search {
+    display:flex
+}
+
+.form-control-margin {
+    margin: auto;
+}
+
 /*# sourceMappingURL=maps/style.css.map */
