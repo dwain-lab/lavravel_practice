@@ -33,11 +33,13 @@
                                 </a> --}}
                             </div>
                         </li>
-                        <li class="nav-item ">
-                            <a href="{{route('post.index')}}" class="nav-link js-scroll-trigger">
-                                Posts
-                            </a>
-                        </li>
+                        @can('view models')
+                            <li class="nav-item ">
+                                <a href="{{route('post.index')}}" class="nav-link js-scroll-trigger">
+                                    Posts
+                                </a>
+                            </li>
+                        @endcan
                         <li class="nav-item ">
                             <a href="{{route('about')}}" class="nav-link js-scroll-trigger">
                                 About

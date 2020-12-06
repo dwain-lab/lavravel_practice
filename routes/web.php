@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
-
+use App\Models\User;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +28,34 @@ Route::get('/about', function () {
     return view('post.about');
 })->name('about');
 
-Route::get('/welcome', function () {
+// Route::get('/welcome', function () {
 
-    return view('welcome');
-});
+//     return view('welcome');
+// });
+
+Route::get('/', function () {
+    return view('post.index');
+})->middleware('auth');
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/search', 'App\Http\Controllers\PostController@search')->name('search');
+Route::get('/search', 'App\Http\Controllers\PostController@search')->name('search')->middleware('auth');
 
 Route::resource('/post','App\Http\Controllers\PostController');
+
+ Route::get('/perma',function () {
+
+
+    //     // $role = Role::findOrFail(3);
+//     // $role->givePermissionTo(['view models','edit models']);
+
+//     // $user = User::findOrFail(1);
+//     // $user->assignRole(['editor']);
+//     $user = User::findOrFail(1);
+//     $user->givePermissionTo('view models');
+
+$user = User::findOrFail(1);
+$user->revokePermissionTo('view models');
+ });

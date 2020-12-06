@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+
+    function __construct()
+    {
+        $this->middleware('permission:view models|edit models|delete models|create models', ['only' => ['index','show']]);
+        $this->middleware('permission:create models', ['only' => ['create','store']]);
+        $this->middleware('permission:edit models', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete models', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::latest('updated_at')->paginate(10);
 
         return view('post.post-table', compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -113,7 +122,7 @@ class PostController extends Controller
             ->orderBy('id')->paginate(5);
 
         return view('post.post-table', compact('posts'))
-        ->with('i', (request()->input('page', 1) - 1) * 10);
+        ->with('i', (request()->input('page', 1) - 1) * 5);
 
     }
 }
