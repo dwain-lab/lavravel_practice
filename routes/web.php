@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Models\Post;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +33,7 @@ Route::get('/welcome', function () {
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/search', 'App\Http\Controllers\PostController@search')->name('search');
+
+Route::resource('/post','App\Http\Controllers\PostController');

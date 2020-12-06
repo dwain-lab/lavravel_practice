@@ -34,16 +34,16 @@
                             </div>
                         </li>
                         <li class="nav-item ">
+                            <a href="{{route('post.index')}}" class="nav-link js-scroll-trigger">
+                                Posts
+                            </a>
+                        </li>
+                        <li class="nav-item ">
                             <a href="{{route('about')}}" class="nav-link js-scroll-trigger">
                                 About
                             </a>
                         </li>
                         {{-- <li class="nav-item ">
-                            <a href="service.html" class="nav-link js-scroll-trigger">
-                                Services
-                            </a>
-                        </li>
-                        <li class="nav-item ">
                             <a href="pricing.html" class="nav-link js-scroll-trigger">
                                 Pricing
                             </a>
