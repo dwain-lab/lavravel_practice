@@ -28,7 +28,29 @@
     </div>
 @endif
 
-<form action="{{ route('post.update', $post->id) }}" method="POST">
+    {!! Form::open(['route' => ['post.update', $post->id], 'method' => 'patch']) !!}
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>{!! Form::label('title', 'Title') !!}</strong>
+                    {!! Form::text('title', $post->title, ['placeholder'=>'Enter Title', 'class'=>'form-control']) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>{!! Form::label('description', 'Description') !!}</strong>
+                    {!! Form::text('description', $post->description, ['placeholder'=>'Enter Description', 'class'=>'form-control']) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                {!! Form::button('Update', ['type' => 'submit', 'class'=>'btn btn-primary']) !!}
+            </div>
+        </div>
+
+    {!! Form::close() !!}
+
+{{-- <form action="{{ route('post.update', $post->id) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -51,6 +73,6 @@
         </div>
     </div>
 
-</form>
+</form> --}}
 
 @endsection

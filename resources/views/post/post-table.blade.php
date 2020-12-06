@@ -26,6 +26,17 @@
 </div>
 @endif
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container">
     @can('create models')
         <div class="row">
@@ -43,7 +54,7 @@
             <!-- Search form -->
             <div class="search-inline">
                 {!! Form::open(['route' => 'search', 'method' => 'get', 'class' => 'form-contorl form-control-search']) !!}
-                    {!! Form::text('search', null, ['class'=>'form-control form-control-margin','required', 'placeholder=search']) !!}
+                    {!! Form::text('search', null, ['class'=>'form-control form-control-margin', 'required' , 'placeholder=search']) !!}
                     {!! Form::button('<i class="fa fa-search"></i>', ['type' => 'submit','class'=>'btn btn-secondary']) !!}
                 {!! Form::close() !!}
             </div>
