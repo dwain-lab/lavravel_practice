@@ -28,14 +28,9 @@ Route::get('/about', function () {
     return view('post.about');
 })->name('about');
 
-// Route::get('/welcome', function () {
-
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return view('post.index');
-})->middleware('auth');
+});
 
 Auth::routes();
 
@@ -45,22 +40,26 @@ Route::get('/search', 'App\Http\Controllers\PostController@search')->name('searc
 
 Route::resource('/post','App\Http\Controllers\PostController');
 
-// Route::get('/perma',function () {
+
+Route::get('/permas',function () {
 
 
-//     //     // $role = Role::findOrFail(3);
-// //     // $role->givePermissionTo(['view models','edit models']);
+    // Permission::create(['name' => 'view models']);
+    // $role1 = Role::create(['name' => 'viewer']);
+    // $role1->givePermissionTo('view models');
+    //$role = Role::findOrFail(3);
+    //$role->givePermissionTo(['view models','edit models']);
 
-//     $user = User::findOrFail(2);
-//     $user->assignRole(['viewer']);
+    $user = User::findOrFail(2);
+    $user->assignRole(['viewer']);
 // //     $user = User::findOrFail(1);
 // //     $user->givePermissionTo('view models');
 
 // // $user = User::findOrFail(2);
 // // $user->revokePermissionTo('view models');
 
-// // return 'hello';
-//  });
+    return 'done';
+});
 
 Route::get('/create-post', function () {
 
@@ -70,4 +69,8 @@ Route::get('/create-post', function () {
     Post::create(['title'=>'Hello World', 'description'=>'Hello World Post']);
     Post::create(['title'=>'Today', 'description'=>'Today Post']);
 
+});
+
+Route::get('/welcome', function () {
+    return view('welcome');
 });
