@@ -11,13 +11,13 @@ class Post extends Model
 {
     use HasFactory, LogsActivity;
 
+    protected static $logName = 'Hello';
+
     protected $fillable = [
         'title',
         'description',
     ];
 
     protected static $logAttributes = ['title', 'description'];
-
-    //protected static $logName = 'Hello';
 
 }

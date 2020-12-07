@@ -118,23 +118,26 @@ class PostController extends Controller
 
     public function search(Request $request) {
 
-        $search = $request->search;
-
         $request->validate([
 
             'search' => 'required'
 
         ]);
+
+        $search = $request->input('search');
+
+        $count = Post::where('title','like', '%'.$search.'%')
+            ->orWhere('description','like', '%'.$search.'%')
+            ->count();
+
         $posts = Post::where('title','like', '%'.$search.'%')
             ->orWhere('description','like', '%'.$search.'%')
-            ->orderBy('id')->paginate(5);
-
-        $count = count($posts);
-
-        // return count($posts);
+            ->orderBy('id')
+            ->paginate(10);
+            $posts->appends(['search' => $search]);
 
        return view('post.post-table', compact('posts'))
-            ->with('i', (request()->input('page', 1) - 1) * 5)
+            ->with('i', (request()->input('page', 1) - 1) * 10)
             ->with('search', session(['search' => $count]));
     }
 }

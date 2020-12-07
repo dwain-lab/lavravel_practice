@@ -41,25 +41,26 @@ Route::get('/search', 'App\Http\Controllers\PostController@search')->name('searc
 Route::resource('/post','App\Http\Controllers\PostController');
 
 
-Route::get('/permas',function () {
+// Route::get('/permas',function () {
 
 
-    // Permission::create(['name' => 'view models']);
-    // $role1 = Role::create(['name' => 'viewer']);
-    // $role1->givePermissionTo('view models');
-    //$role = Role::findOrFail(3);
-    //$role->givePermissionTo(['view models','edit models']);
+//     // Permission::create(['name' => 'view models']);
+//     // $role1 = Role::create(['name' => 'viewer']);
+//     // $role1->givePermissionTo('view models');
+//     //$role = Role::findOrFail(3);
+//     //$role->givePermissionTo(['view models','edit models']);
 
-    $user = User::findOrFail(2);
-    $user->assignRole(['viewer']);
-// //     $user = User::findOrFail(1);
-// //     $user->givePermissionTo('view models');
+//     // //     $user = User::findOrFail(1);
+// // //     $user->givePermissionTo('view models');
 
-// // $user = User::findOrFail(2);
-// // $user->revokePermissionTo('view models');
+// // // $user = User::findOrFail(2);
+// // // $user->revokePermissionTo('view models');
 
-    return 'done';
-});
+//     $user = User::findOrFail(2);
+//     $user->assignRole(['viewer']);
+
+//     return 'done';
+// });
 
 Route::get('/create-post', function () {
 
@@ -69,8 +70,12 @@ Route::get('/create-post', function () {
     Post::create(['title'=>'Hello World', 'description'=>'Hello World Post']);
     Post::create(['title'=>'Today', 'description'=>'Today Post']);
 
+
+
 });
 
 Route::get('/welcome', function () {
-    return view('welcome');
+    $user = User::findOrFail(1);
+    $user->assignRole(['viewer']);
+   //return view('welcome');
 });
