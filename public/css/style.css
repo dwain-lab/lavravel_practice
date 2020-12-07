@@ -1992,13 +1992,17 @@ a.page-link:hover {
     color: red;
 }
 
+#container-search {
+    width: 50%;
+}
+
 .search-inline {
-    float: right;
-    display: inline-flex;
+    margin-left: 15px;
 }
 
 .form-control-search {
-    display:flex
+    display: inline-flex;
+    margin-left: 60%;
 }
 
 .form-control-margin {
