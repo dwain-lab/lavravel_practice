@@ -27,9 +27,12 @@ class PostController extends Controller
     public function index()
     {
         session()->forget('search');
-        $posts = Post::latest('updated_at')->paginate(10);
-        return view('post.post-table', compact('posts'))
-            ->with('i', (request()->input('page', 1) - 1) * 10);
+        // $posts = Post::latest('updated_at')->paginate(10);
+        $posts = Post::sortable()->latest('updated_at')->paginate();
+        return view('post.post-table', compact('posts'));
+        // return view('post.post-table')->with('posts', $posts);
+            //->with('posts',$posts);
+            // ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -126,18 +129,23 @@ class PostController extends Controller
 
         $search = $request->input('search');
 
-        $count = Post::where('title','like', '%'.$search.'%')
-            ->orWhere('description','like', '%'.$search.'%')
-            ->count();
+        // $count = Post::where('title','like', '%'.$search.'%')
+        //     ->orWhere('description','like', '%'.$search.'%')
+        //     ->count();
 
-        $posts = Post::where('title','like', '%'.$search.'%')
+        $posts = Post::sortable()->
+            where('title','like', '%'.$search.'%')
             ->orWhere('description','like', '%'.$search.'%')
-            ->orderBy('id')
-            ->paginate(10);
-            $posts->appends(['search' => $search]);
+            ->orderBy('updated_at', 'desc');
+
+        $count = $posts->count();
+
+        $posts = $posts->paginate(10);
+
+            //$posts->appends(['search' => $search]);
 
        return view('post.post-table', compact('posts'))
-            ->with('i', (request()->input('page', 1) - 1) * 10)
+         //   ->with('i', (request()->input('page', 1) - 1) * 10)
             ->with('search', session(['search' => $count]));
     }
 }

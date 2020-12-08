@@ -67,18 +67,18 @@
 
     <table class="table table-bordered table-responsive-lg">
     <tr>
-        <th>No</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Date Updated</th>
+        {{-- <th>No</th> --}}
+        <th> @sortablelink('title' , 'Title') </th>
+        <th> @sortablelink('description', 'Description') </th>
+        <th> @sortablelink('updated_at', 'Date Updated') </th>
         <th width="280px">Action</th>
     </tr>
     @foreach ($posts as $post)
         <tr>
-            <td>{{ ++$i }}</td>
+            {{-- <td>{{ ++$i }}</td> --}}
             <td>{{ $post->title }}</td>
             <td>{{ $post->description }}</td>
-            <td>{{ date_format($post->updated_at, 'jS M Y') }}</td>
+            <td>{{ date_format($post->updated_at, 'jS M Y H:i:s') }}</td>
             <td>
                     {!! Form::open(['route' => ['post.destroy', $post->id], 'method' => 'post']) !!}
                     @can('view models')
@@ -124,7 +124,7 @@
     @endforeach
     </table>
 
-    {!! $posts->links('pagination::bootstrap-4') !!}
-</div>
+    {{-- {!! $posts->links('pagination::bootstrap-4') !!} --}}
+    {!! $posts->appends(\Request::except('page'))->render('pagination::bootstrap-4') !!}
 @endsection
 
