@@ -1,9 +1,13 @@
 <x-guest-layout>
+
+<div>    
     <x-auth-card>
         <x-slot name="logo">
+        <div>
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img style="width: 2%" src="{{ asset('images/image/best-logo-2013-3.png')}}" />
             </a>
+        </div>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
@@ -34,6 +38,7 @@
                     {{ __('Logout') }}
                 </button>
             </form>
-        </div>
+    </div>
     </x-auth-card>
+</div>
 </x-guest-layout>
