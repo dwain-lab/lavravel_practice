@@ -8,6 +8,9 @@ use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,47 +23,45 @@ use Spatie\Permission\PermissionRegistrar;
 |
 */
 
-Route::get('/home', function () {
-    return view('post.index');
-})->name('home');
+/*
+|--------------------------------------------------------------------------
+| Middleware Verifed only
+|--------------------------------------------------------------------------
+|
+| Only users with verifed accounts can access this section
+|
+*/
 
-Route::get('/about', function () {
-    return view('post.about');
-})->name('about');
+Route::group(['middleware' => ['verified']], function () {
 
-Route::get('/', function () {
-    return view('post.index');
+    Route::get('/search', 'App\Http\Controllers\PostController@search')->name('search');
+
+    Route::resource('/post','App\Http\Controllers\PostController');
+
+
 });
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/', function () {
+        return view('post.index');
+    });
+
+    Route::get('/home', function () {
+        return view('post.index');
+    })->name('home');
+
+    Route::get('/about', function () {
+        return view('post.about');
+    })->name('about')->middleware('verified');
+});
+
+
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/search', 'App\Http\Controllers\PostController@search')->name('search')->middleware('auth');
-
-Route::resource('/post','App\Http\Controllers\PostController');
-
-
-// Route::get('/permas',function () {
-
-
-//     // Permission::create(['name' => 'view models']);
-//     // $role1 = Role::create(['name' => 'viewer']);
-//     // $role1->givePermissionTo('view models');
-//     //$role = Role::findOrFail(3);
-//     //$role->givePermissionTo(['view models','edit models']);
-
-//     // //     $user = User::findOrFail(1);
-// // //     $user->givePermissionTo('view models');
-
-// // // $user = User::findOrFail(2);
-// // // $user->revokePermissionTo('view models');
-
-//     $user = User::findOrFail(2);
-//     $user->assignRole(['viewer']);
-
-//     return 'done';
-// });
 
 Route::get('/create-post', function () {
 
@@ -69,9 +70,6 @@ Route::get('/create-post', function () {
     Post::create(['title'=>'Dwain', 'description'=>'Dwain Post']);
     Post::create(['title'=>'Hello World', 'description'=>'Hello World Post']);
     Post::create(['title'=>'Today', 'description'=>'Today Post']);
-
-
-
 });
 
 Route::get('/welcome', function () {
@@ -79,3 +77,15 @@ Route::get('/welcome', function () {
     $user->assignRole(['viewer']);
    //return view('welcome');
 });
+
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');
+
+Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->name('verification.verify');
+
+Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
+    ->middleware('auth')
+    ->name('verification.notice');

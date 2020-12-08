@@ -4,8 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+//use Backend\Controllers\Auth;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+
+
+
 
 class VerifyEmailController extends Controller
 {
@@ -23,6 +30,8 @@ class VerifyEmailController extends Controller
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
+            $user = Auth::user();
+            $user->assignRole(['viewer']);
         }
 
         return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
