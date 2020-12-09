@@ -7,9 +7,6 @@
 
 @section('content')
 
-{{-- {!! Session::has('msg') ? Session::get("msg") : '' !!} --}}
-
-
 @if ($search = Session::get('search'))
 <div class="alert alert-success">
     <p>{{ $search }} records returned successfully</p>

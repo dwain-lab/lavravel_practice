@@ -1,3 +1,8 @@
+@if ($status = Session::get('status'))
+    <div class="alert alert-success">
+        <p style="text-align: center; font-size: x-large">{{ $status }}</p>
+    </div>
+@endif    
     <div class="top-bar bg-dark " id="top-bar">
         <div class="container">
             <div class="row align-items-center">
