@@ -145,8 +145,10 @@ class PostController extends Controller
 
             //$posts->appends(['search' => $search]);
 
-       return view('post.post-table', compact('posts'))
+        session()->flash('search', $count);
+
+       return view('post.post-table', compact('posts'));
          //   ->with('i', (request()->input('page', 1) - 1) * 10)
-            ->with('search', session(['search' => $count]));
+            // ->with('search', session(['search' => $count]));
     }
 }
