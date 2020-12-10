@@ -87,3 +87,137 @@ Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke
 // Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
 //     ->middleware('auth')
 //     ->name('verification.notice');
+
+
+
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController')->except('create');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show');
+
+
+Route::resource('phone', 'PhoneController')->except('destroy');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show');
+
+
+Route::resource('phone', 'PhoneController')->except('destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('update', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'update', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'store', 'show');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show', 'edit');
+
+
+Route::resource('phone', 'PhoneController')->only('index');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'store');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show');
+
+
+Route::resource('phone', 'PhoneController')->only('index', 'show', 'edit');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('create', 'store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('store', 'destroy');
+
+
+Route::resource('phone', 'PhoneController')->except('destroy');
+
+
+Route::resource('phone', 'PhoneController');
+
+
+Route::resource('phone', 'PhoneController');
+
+Route::resource('service', 'ServiceController');
