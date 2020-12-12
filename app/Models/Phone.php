@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
+
 
 class Phone extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,9 +29,16 @@ class Phone extends Model
         'id' => 'integer',
     ];
 
+    public $sortable = [
+        'number',
+        'updated_at'
+    ];
+
 
     public function services()
     {
-        return $this->hasMany(\App\Models\Service::class);
+        return $this->belongsToMany(\App\Models\Service::class)
+            ->withPivot('updated_at')
+            ->withTimestamps();
     }
 }

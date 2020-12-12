@@ -41,21 +41,22 @@
                             </li>
                         @endcan
                         <li class="nav-item ">
-                            <a href="{{route('about')}}" class="nav-link js-scroll-trigger">
-                                About
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item ">
-                            <a href="pricing.html" class="nav-link js-scroll-trigger">
-                                Pricing
+                            <a href="{{ route('phone.index') }}" class="nav-link js-scroll-trigger">
+                                Phones
                             </a>
                         </li>
 
                         <li class="nav-item ">
-                            <a href="project.html" class="nav-link js-scroll-trigger">
-                                Projects
+                            <a href="{{ route('service.index') }}" class="nav-link js-scroll-trigger">
+                                Services
                             </a>
-                        </li> --}}
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="{{route('about')}}" class="nav-link js-scroll-trigger">
+                                About
+                            </a>
+                        </li>
 
                         {{-- <li class="nav-item ">
                             <a href="contact.html" class="nav-link">

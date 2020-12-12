@@ -1,6 +1,6 @@
 @extends('post.layouts.app')
 
-@section('title', 'Phone Table')
+@section('title', 'Detach Table')
 
 @section('page', 'Phone Table')
 

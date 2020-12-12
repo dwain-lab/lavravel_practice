@@ -23,7 +23,7 @@ class PhoneFactory extends Factory
     public function definition()
     {
         return [
-            'number' => $this->faker->word,
+            'number' => $this->faker->numberBetween(['6000000','6010000']),
         ];
     }
 }

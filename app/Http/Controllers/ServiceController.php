@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Service;
-use App\service;
+use App\Models\Service;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -14,9 +16,13 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
+
+        session()->forget('search');
         $services = Service::all();
 
-        return view('service.index');
+        $services = Service::sortable()->latest('updated_at')->paginate(10);
+        return view('service.index', compact('services'));
+
     }
 
     /**
@@ -55,9 +61,17 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $service->save();
 
-        return redirect()->route('service.index');
+        $request->validate([
+            'code' => 'required|unique:services,code',
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $service->update($request->all());
+
+        return redirect()->route('service.index')
+            ->with('success', 'Service Table updated successfully');
     }
 
     /**
@@ -66,11 +80,17 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $service = Service::create($request->all());
 
-        $request->session()->flash('service.id', $service->id);
+        $request->validate([
+            'code' => 'required|unique:services,code',
+            'name' => 'required',
+            'description' => 'required',
+        ]);
 
-        return redirect()->route('service.index');
+        Service::create($request->all());
+
+       return redirect()->route('service.index')
+            ->with('success', 'Service created successfully.');
     }
 
     /**
@@ -82,6 +102,33 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')
+            ->with('success', $service->name.' deleted successfully');
+    }
+
+    /**
+     * @param Request $request
+     * @return View|Factory
+     * @throws BindingResolutionException
+     */
+    public function searchService(Request $request) {
+
+        $request->validate([
+
+            'search' => 'required'
+        ]);
+
+        $search = $request->input('search');
+
+        $services = Service::sortable()
+            ->where('number','like', '%'.$search.'%')
+            ->orderBy('updated_at', 'desc');
+
+        $count = $services->count();
+
+        $services = $services->paginate(10);
+
+       return view('service.index', compact('services'))
+            ->with('search', session(['search' => $count]));
     }
 }

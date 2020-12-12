@@ -1,8 +1,8 @@
 @extends('post.layouts.app')
 
-@section('title', 'Phone Table')
+@section('title', 'Phone Service Table')
 
-@section('page', 'Phone Table')
+@section('page', 'Phone Service Table')
 
 
 @section('content')
@@ -49,7 +49,7 @@
 @endcan
 
         <div class="search-inline">
-            <a class="btn btn-primary" href="{{ route('phone.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
+            <a class="btn btn-primary" href="{{ route('phone_service.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
         </div>
             <!-- Search form -->
         <div class="search-inline" style="width: 100%; display:grid">
@@ -66,39 +66,49 @@
     <table class="table table-bordered table-responsive-lg">
     <tr>
         {{-- <th>No</th> --}}
-        <th> @sortablelink('number' , 'Phone') </th>
+        <th> @sortablelink('number' , 'Phone Number') </th>
+        <th> @sortablelink('name' , 'Service') </th>
+        {{-- <th> Phone Number </th>
+        <th> Service </th> --}}
         <th> @sortablelink('updated_at', 'Date Updated') </th>
         <th width="280px">Action</th>
     </tr>
     @foreach ($phones as $phone)
         <tr>
-            {{-- <td>{{ ++$i }}</td> --}}
             <td>{{ $phone->number }}</td>
-            {{-- <td>{{ date_format($phone->updated_at, 'jS M Y H:i:s') }}</td> --}}
-            <td>{{ $phone->updated_at->diffForHumans() }}</td>
             <td>
-                    {!! Form::open(['route' => ['phone.destroy', $phone->id], 'method' => 'post']) !!}
-                    @can('view models')
+            @foreach($phone->services as $value)
+                {{ $value->name }}
+            @endforeach
+            </td>
+            {{-- <td>{{ $phone->name }}</td> --}}
+            <td>{{ $value->pivot->updated_at->diffForHumans() }}</td>
+            {{-- <td>
+                    {!! Form::open(['route' => ['phone_service.destroy', $phone->phone_id,$phone->service_id], 'method' => 'post']) !!}
+
+                    {{-- @can('view models')
                         <a href="{{ route('phone.show', $phone->id) }}" title="show" class="crud-spacing">
                             <i class="fas fa-eye text-success  fa-lg"></i>
                         </a>
-                    @endcan
-                    @can('edit models')
+                    @endcan --}}
+                    {{-- @can('edit models')
                         <a href="{{ route('phone.edit', $phone->id) }}" class="crud-spacing">
                             <i class="fas fa-edit  fa-lg"></i>
                         </a>
-                    @endcan
+                    @endcan --}}
 
-                    @can('delete models')
-                    @method('DELETE')
-                        {!! Form::button('<i class="fas fa-trash fa-lg text-danger"></i>', ['type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete the phone title '. $phone->title.'?\')', 'style' => 'border: none; background-color:transparent;']) !!}
-                    @endcan
-                    {!! Form::close() !!}
-            </td>
+                    {{-- @can('delete models')
+                    {{-- @method('post') --}}
+                        {{-- {!! Form::button('<i class="fas fa-trash fa-lg text-danger"></i>', ['type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete the phone number '. $phone->number.'?\')', 'style' => 'border: none; background-color:transparent;']) !!}
+                    @endcan --}}
+                    {{-- {!! Form::close() !!}
+            </td> --}}
         </tr>
     @endforeach
     </table>
 
     {!! $phones->appends(\Request::except('page'))->render('pagination::bootstrap-4') !!}
+
+    {{-- {{ $phones->links(pagination::bootstrap-4) }} --}}
 
 @endsection
