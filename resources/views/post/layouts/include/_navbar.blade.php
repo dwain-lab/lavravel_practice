@@ -53,16 +53,16 @@
                         </li>
 
                         <li class="nav-item ">
+                            <a href="{{ route('phone_service.index') }}" class="nav-link">
+                                Management
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
                             <a href="{{route('about')}}" class="nav-link js-scroll-trigger">
                                 About
                             </a>
                         </li>
-
-                        {{-- <li class="nav-item ">
-                            <a href="contact.html" class="nav-link">
-                                Contact
-                            </a>
-                        </li> --}}
                     </ul>
 
                     <ul class="ml-lg-auto list-unstyled m-0">

@@ -34,7 +34,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>{!! Form::label('code', 'Service Code') !!}</strong>
-                    {!! Form::text('code', $service->code, ['placeholder'=>'Enter Code', 'class'=>'form-control']) !!}
+                    {!! Form::text('code', $service->code, ['placeholder'=>'Enter Code', 'class'=>'form-control', 'readonly']) !!}
                 </div>
                 <div class="form-group">
                     <strong>{!! Form::label('name', 'Service Name') !!}</strong>

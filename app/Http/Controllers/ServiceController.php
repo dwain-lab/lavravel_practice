@@ -63,7 +63,7 @@ class ServiceController extends Controller
     {
 
         $request->validate([
-            'code' => 'required|unique:services,code',
+            'code' => 'required',
             'name' => 'required',
             'description' => 'required',
         ]);
@@ -121,7 +121,9 @@ class ServiceController extends Controller
         $search = $request->input('search');
 
         $services = Service::sortable()
-            ->where('number','like', '%'.$search.'%')
+            ->where('code','like', '%'.$search.'%')
+            ->orWhere('name','like', '%'.$search.'%')
+            ->orWhere('description','like', '%'.$search.'%')
             ->orderBy('updated_at', 'desc');
 
         $count = $services->count();

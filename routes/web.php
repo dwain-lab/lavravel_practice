@@ -12,7 +12,6 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Models\Phone;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,11 +45,21 @@ Auth::routes();
 
     Route::get('/search-service', 'App\Http\Controllers\ServiceController@searchService')->name('search-service');
 
+    Route::get('/search-phone_service', 'App\Http\Controllers\PhoneController@searchPhoneService')->name('search-phone_service');
+
     Route::get('/phone_service', 'App\Http\Controllers\PhoneController@listPhoneService')->name('phone_service.index');
 
     Route::post('/phone_service/{phone}/{service}/destroy', 'App\Http\Controllers\PhoneController@destroyPhoneService')->name('phone_service.destroy');
 
-    // Route::get('/phone_service/destroy', 'App\Http\Controllers\PhoneController@destroyPhoneService')->name('phone_service.destroy');
+    Route::post('/phone_service/{phone}/destroyAll', 'App\Http\Controllers\PhoneController@phone_serviceDeleteAllServiceAttached')->name('phone_service.destroyAll');
+
+    Route::get('/phone_service/create', 'App\Http\Controllers\PhoneController@createPhoneService')->name('phone_service.create');
+
+    Route::post('/phone_service', 'App\Http\Controllers\PhoneController@phone_serviceStore')->name('phone_service.store');
+
+    Route::get('/phone_service/{phone}/edit', 'App\Http\Controllers\PhoneController@phone_serviceEdit')->name('phone_service.edit');
+
+    Route::put('/phone_service/{phone}', 'App\Http\Controllers\PhoneController@phone_serviceUpdate')->name('phone_service.update');
 
     Route::resource('/post','App\Http\Controllers\PostController');
 
@@ -58,44 +67,6 @@ Auth::routes();
 
     Route::resource('/service', 'App\Http\Controllers\ServiceController');
 // });
-
-
-Route::get('syncNow', function () {
-
-    // $phone = Phone::find(6);
-    // dd($phone->services);
-    // foreach ($phone->services as $service) {
-    //     echo $service->name; // This will echo out the role name
-    // }
-
-    // $phone = DB::table('phones')
-    //     ->join('phone_service', 'phones.id', '=', 'phone_service.phone_id')
-    //     ->join('services', 'services.id', '=', 'phone_service.service_id')
-    //     ->select('phones.number', 'services.name', 'phone_service.updated_at')
-    //     ->get();
-
-    //     dd($phone);
-
-    //     foreach($phone as $key => $value) {
-    //         echo $value->number." ".$value->name;
-    //         echo "\n";
-    //     }
-
-    $phones = Phone::join('phone_service', 'phones.id', '=', 'phone_service.phone_id')
-        ->join('services', 'services.id', '=', 'phone_service.service_id')
-        ->get(['phones.number', 'services.name', 'phone_service.updated_at']);
-
-    dd($phones);
-
-});
-
-
-
-
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------

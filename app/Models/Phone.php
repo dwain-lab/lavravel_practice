@@ -38,7 +38,6 @@ class Phone extends Model
     public function services()
     {
         return $this->belongsToMany(\App\Models\Service::class)
-            ->withPivot('updated_at')
             ->withTimestamps();
     }
 }

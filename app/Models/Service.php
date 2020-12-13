@@ -71,6 +71,6 @@ class Service extends Model
     public function phones()
     {
         return $this->belongsToMany(\App\Models\Phone::class)
-        ->withTimestamps();
+            ->withTimestamps();
     }
 }
