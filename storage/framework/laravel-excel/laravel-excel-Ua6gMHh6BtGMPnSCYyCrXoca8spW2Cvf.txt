@@ -1,0 +1,9 @@
+﻿code,name,description
+PRDATA01,data xxs,50 mb
+PRDATA02,data xs,100 mb
+PRDATA03,data s,150 mb
+PRDATA04,data m,300 mb
+PRDATA05,data l,1000 mb
+PRDATA06,data xl,2000 mb
+PRDATA07,data xxl,5000 mb
+PRDATA08,data xxxl,7500 mb

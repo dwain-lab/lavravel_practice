@@ -51,6 +51,9 @@
         <div class="search-inline">
             <a class="btn btn-primary" href="{{ route('phone.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
         </div>
+        <div class="search-inline">
+            <a class="btn btn-primary" href="{{ route('phone.file-export') }}"><i class="fas fa-file-download "></i> </a>
+        </div>
             <!-- Search form -->
         <div class="search-inline" style="width: 100%; display:grid">
             {!! Form::open(['route' => 'search-phone', 'method' => 'get', 'class' => 'form-contorl form-control-search']) !!}

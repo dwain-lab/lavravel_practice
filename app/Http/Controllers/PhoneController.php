@@ -8,9 +8,16 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PhonesExport;
+use App\Imports\PhonesImport;
+use Exception;
+use SplFileObject;
+
+use function PHPUnit\Framework\isFalse;
 
 class PhoneController extends Controller
 {
@@ -301,5 +308,76 @@ class PhoneController extends Controller
 
        return view('phone_service.index', compact('phones'))
             ->with('search', session(['search' => $count]));
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function phoneImportUpload()
+    {
+        //return 'hello';
+        return view('phone.file-import');
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws BindingResolutionException
+     * @throws Exception
+     */
+    public function phoneImportStore(Request $request)
+    {
+        $rules = [
+            'file' => 'required|mimes:csv,txt|max:2040',
+        ];
+
+
+    $customMessages = [
+        'mimes' => 'File must be type CSV only.',
+        'required' => 'Please insert file and try again.',
+        'max' => 'File needs to be bigger than 2 megabytes',
+    ];
+
+    $this->validate($request, $rules, $customMessages);
+
+        $path = $request->file('file')->path();
+        $fileObj = new splFileObject($path, 'r');
+        $fileObj->seek(1);
+        if ($fileObj->current() == "\r\n" || preg_match('/[\s\D]{6}+/', $fileObj->current()) || $fileObj->current() == "" ) {
+            // echo "we are here in the object";
+            // return dd($fileObj->current());
+            return back()->withErrors('Please verify csv file.  File is formatted wrongly!');
+        }
+
+        // echo "we are here";
+        // return dd($fileObj->current());
+        $file = $request->file('file');
+        $file = $file->store('temp');
+
+        $import = new PhonesImport;
+        $import->import($file);
+
+
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
+        return back()->withStatus('Upload completed successfully.');
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function fileExport()
+    {
+        return new PhonesExport;
+    }
+
+        /** @return array  */
+        public function messages()
+    {
+        return [
+            'file.mimes' => 'File input must be CSV only',
+        ];
     }
 }

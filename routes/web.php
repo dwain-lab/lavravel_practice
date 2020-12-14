@@ -11,6 +11,7 @@ use Spatie\Permission\PermissionRegistrar;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\PhoneController;
 use App\Models\Phone;
 
 /*
@@ -26,10 +27,10 @@ use App\Models\Phone;
 
 /*
 |--------------------------------------------------------------------------
-| Middleware Verifed only
+| Middleware Verified only
 |--------------------------------------------------------------------------
 |
-| Only users with verifed accounts can access this section
+| Only users with verified accounts can access this section
 |
 */
 
@@ -66,6 +67,19 @@ Auth::routes();
     Route::resource('/phone', 'App\Http\Controllers\PhoneController');
 
     Route::resource('/service', 'App\Http\Controllers\ServiceController');
+
+    Route::get('phone-export', 'App\Http\Controllers\PhoneController@fileExport')->name('phone.file-export');
+
+    Route::get('/phone-import', 'App\Http\Controllers\PhoneController@phoneImportUpload')->name('phone.file-import');
+
+    Route::post('/phone-import', 'App\Http\Controllers\PhoneController@phoneImportStore')->name('phone.import-store');
+
+    Route::get('service-export', 'App\Http\Controllers\ServiceController@serviceExport')->name('service.file-export');
+
+    Route::get('/service-import', 'App\Http\Controllers\ServiceController@serviceImportUpload')->name('service.file-import');
+
+    Route::post('/service-import', 'App\Http\Controllers\ServiceController@serviceImportStore')->name('service.import-store');
+
 // });
 
 /*

@@ -17,7 +17,9 @@ class CreateServicesTable extends Migration
             $table->id();
             $table->string('code')->index()->unique();
             $table->string('name', 100);
-            $table->string('description', 200);
+            $table->string('description', 150);
+            $table->string('keyword',50)->index()->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

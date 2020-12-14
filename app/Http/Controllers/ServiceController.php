@@ -7,6 +7,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
+use App\Exports\ServicesExport;
+use App\Imports\ServicesImport;
+use Exception;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
+use Maatwebsite\Excel\Exceptions\NoFilePathGivenException;
+use SplFileObject;
 
 class ServiceController extends Controller
 {
@@ -132,5 +139,71 @@ class ServiceController extends Controller
 
        return view('service.index', compact('services'))
             ->with('search', session(['search' => $count]));
+    }
+
+        /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function serviceImportUpload()
+    {
+        return view('service.file-import');
+    }
+
+
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws BindingResolutionException
+     * @throws Exception
+     * @throws NoFilePathGivenException
+     */
+    public function serviceImportStore(Request $request)
+    {
+
+        $rules = [
+            'file' => 'required|mimes:csv,txt|max:2040',
+        ];
+
+
+    $customMessages = [
+        'mimes' => 'File must be type CSV only.',
+        'required' => 'Please insert file and try again.',
+        'max' => 'File needs to be bigger than 2 megabytes',
+    ];
+
+    $this->validate($request, $rules, $customMessages);
+
+        $path = $request->file('file')->path();
+        $fileObj = new splFileObject($path, 'r');
+        $fileObj->seek(1);
+        if ($fileObj->current() == "\r\n" || !(preg_match('/[\d\w]+[,]\b/', $fileObj->current())) || $fileObj->current() == ""  ) {
+            // echo "we are here in the object";
+            // return dd($fileObj->current());
+            return back()->withErrors('Please verify csv file.  File is formatted wrongly!');
+        }
+        // echo "we are here";
+        // return dd($fileObj->current());
+        $file = $request->file('file');
+        $file = $file->store('temp');
+
+        $import = new ServicesImport;
+        $import->import($file);
+
+
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
+        return back()->withStatus('Upload completed successfully.');
+
+
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function serviceExport()
+    {
+        return new ServicesExport;
     }
 }

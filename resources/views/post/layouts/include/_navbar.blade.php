@@ -63,6 +63,25 @@
                                 About
                             </a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarWelcome" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Import/Export
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarWelcome">
+                                 <a class="dropdown-item " href="{{URL::to('phone-export')}}">
+                                    Export Phones
+                                </a>
+                                <a class="dropdown-item " href="{{URL::to('service-export')}}">
+                                    Export Services
+                                </a>
+                                <a class="dropdown-item " href="{{URL::to('phone-import')}}">
+                                    Import Phones
+                                </a>
+                                <a class="dropdown-item " href="{{URL::to('service-import')}}">
+                                    Import Services
+                                </a>
+                            </div>
+                        </li>
                     </ul>
 
                     <ul class="ml-lg-auto list-unstyled m-0">
