@@ -34,6 +34,19 @@ use App\Models\Phone;
 |
 */
 
+
+Route::group(['middleware' => ['checkStatus']], function () {
+
+    Route::get('/testing', function () {
+
+
+        //dd('hello');
+
+    });
+
+});
+
+
 Auth::routes();
 
 // Route::get('/phone', 'App\Http\Controllers\PhoneController');
@@ -95,11 +108,11 @@ Route::group(['middleware' => ['verified']], function () {
 
     Route::get('/', function () {
         return view('home');
-    });
+    })->middleware('checkStatus');
 
     Route::get('/home', function () {
         return view('home');
-    })->name('home');
+    })->name('home')->middleware('checkStatus');
 
     Route::get('/about', function () {
         return view('about');

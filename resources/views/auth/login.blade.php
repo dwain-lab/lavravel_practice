@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There was a problem with logging you into the system.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
