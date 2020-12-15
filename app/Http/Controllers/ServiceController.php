@@ -21,12 +21,12 @@ class ServiceController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:view models|edit models|delete models|create models', ['only' => ['index','show','search']]);
+        $this->middleware('permission:view models|edit models|delete models|create models', ['only' => ['index','show','search', 'searchService']]);
         $this->middleware('permission:create models', ['only' => ['create','store']]);
         $this->middleware('permission:edit models', ['only' => ['edit','update']]);
         $this->middleware('permission:delete models', ['only' => ['destroy']]);
         $this->middleware('permission:export models', ['only' => ['serviceExport']]);
-
+        $this->middleware('permission:import models', ['only' => ['serviceImportStore','serviceImportUpload']]);
     }
 
     /**

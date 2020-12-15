@@ -84,11 +84,9 @@
             <td>{{ $phone->updated_at->diffForHumans() }}</td>
             <td>
                     {!! Form::open(['route' => ['phone.destroy', $phone->id], 'method' => 'post']) !!}
-                    @can('view models')
                         <a href="{{ route('phone.show', $phone->id) }}" title="show" class="crud-spacing">
                             <i class="fas fa-eye text-success  fa-lg"></i>
                         </a>
-                    @endcan
                     @can('edit models')
                         <a href="{{ route('phone.edit', $phone->id) }}" class="crud-spacing">
                             <i class="fas fa-edit  fa-lg"></i>

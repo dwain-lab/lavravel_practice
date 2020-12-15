@@ -5,9 +5,9 @@
 @section('page', 'Phone Service Create Page')
 
 @section('content')
-
+@can('create models')
 <div style="width: 100%; display:flex;">
-    @can('create models')
+
             <div class="search-inline">
                 <a class="btn btn-primary" href="{{ route('phone_service.create') }}" title="Add New Number"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -15,7 +15,7 @@
                 </svg>
                 </a>
             </div>
-    @endcan
+
 
             <div class="search-inline">
                 <a class="btn btn-primary" href="{{ route('phone_service.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
@@ -67,5 +67,6 @@
         </div>
     </div>
 {!! Form::close() !!}
+@endcan
 
 @endsection
