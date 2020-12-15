@@ -26,6 +26,8 @@ class PermissionDemoSeeder extends Seeder
         Permission::create(['name' => 'delete models']);
         Permission::create(['name' => 'create models']);
         Permission::create(['name' => 'view models']);
+        Permission::create(['name' => 'export models']);
+        Permission::create(['name' => 'import models']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'viewer']);
@@ -35,6 +37,7 @@ class PermissionDemoSeeder extends Seeder
         $role2->givePermissionTo('edit models');
         $role2->givePermissionTo('create models');
         $role2->givePermissionTo('view models');
+        $role2->givePermissionTo('export models');
 
         $role3 = Role::create(['name' => 'editor']);
         $role3->givePermissionTo('edit models');

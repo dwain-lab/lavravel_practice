@@ -54,7 +54,7 @@
     <h2 class="mb-4">
         CSV to Import
     </h2>
-
+@can('import models')
     {!! Form::open(['route' => ['service.import-store'], 'method' => 'post', 'files' => true]) !!}
         <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
             <div class="custom-file text-left">
@@ -64,6 +64,7 @@
                 {!! Form::button('Import Data', ['type' => 'submit','class'=>'btn btn-primary']) !!}
     {!! Form::close() !!}
     {{-- </form> --}}
+@endcan
 </div>
 
 @endsection

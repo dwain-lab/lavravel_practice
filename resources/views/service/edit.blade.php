@@ -6,6 +6,8 @@
 
 @section('content')
 
+@can('edit models')
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -34,7 +36,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>{!! Form::label('code', 'Service Code') !!}</strong>
-                    {!! Form::text('code', $service->code, ['placeholder'=>'Enter Code', 'class'=>'form-control', 'readonly']) !!}
+                    {!! Form::text('code', $service->code, ['placeholder'=>'Enter Code', 'class'=>'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>{!! Form::label('name', 'Service Name') !!}</strong>
@@ -44,12 +46,18 @@
                     <strong>{!! Form::label('description', 'Service Description') !!}</strong>
                     {!! Form::text('description', $service->description, ['placeholder'=>'Enter Description', 'class'=>'form-control']) !!}
                 </div>
+                <div class="form-group">
+                    <strong>{!! Form::label('keyword', 'Service Keyword') !!}</strong>
+                    {!! Form::text('keyword', $service->keyword, ['placeholder'=>'Enter Service Keyword', 'class'=>'form-control']) !!}
+                    {{-- This is a way to do select with a default from the database --}}
+                    {{-- {!! Form::select('keyword', $keywords, null,['placeholder' => $service->keyword, 'class'=>'form-control']) !!} --}}
+                </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                {!! Form::button('Update', ['type' => 'submit', 'class'=>'btn btn-primary']) !!}
+                {!! Form::button('Update', ['type' => 'submit', 'class'=>'btn btn-primary', 'title' => 'Update']) !!}
             </div>
         </div>
 
     {!! Form::close() !!}
-
+@endcan
 @endsection

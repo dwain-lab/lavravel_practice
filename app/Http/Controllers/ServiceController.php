@@ -17,6 +17,18 @@ use SplFileObject;
 
 class ServiceController extends Controller
 {
+
+
+    function __construct()
+    {
+        $this->middleware('permission:view models|edit models|delete models|create models', ['only' => ['index','show','search']]);
+        $this->middleware('permission:create models', ['only' => ['create','store']]);
+        $this->middleware('permission:edit models', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete models', ['only' => ['destroy']]);
+        $this->middleware('permission:export models', ['only' => ['serviceExport']]);
+
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -70,9 +82,10 @@ class ServiceController extends Controller
     {
 
         $request->validate([
-            'code' => 'required',
+            'code' => 'required|unique:services,code',
             'name' => 'required',
             'description' => 'required',
+            'keyword' => 'required|unique:services,keyword',
         ]);
 
         $service->update($request->all());
@@ -92,6 +105,7 @@ class ServiceController extends Controller
             'code' => 'required|unique:services,code',
             'name' => 'required',
             'description' => 'required',
+            'keyword' => 'unique:services,keyword|required',
         ]);
 
         Service::create($request->all());
@@ -112,6 +126,7 @@ class ServiceController extends Controller
         return redirect()->route('service.index')
             ->with('success', $service->name.' deleted successfully');
     }
+
 
     /**
      * @param Request $request
@@ -189,6 +204,10 @@ class ServiceController extends Controller
         $import = new ServicesImport;
         $import->import($file);
 
+        if($import->errors()->isNotEmpty()){
+            dd($import->errors());
+            return back()->withErrors('Upload was unsuccessful.  Please wait and try again');
+        }
 
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());

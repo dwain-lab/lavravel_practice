@@ -39,49 +39,53 @@
                                     Posts
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a href="{{ route('phone.index') }}" class="nav-link js-scroll-trigger">
+                                    Phones
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a href="{{ route('service.index') }}" class="nav-link js-scroll-trigger">
+                                    Services
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a href="{{ route('phone_service.index') }}" class="nav-link">
+                                    Management
+                                </a>
+                            </li>
                         @endcan
-                        <li class="nav-item ">
-                            <a href="{{ route('phone.index') }}" class="nav-link js-scroll-trigger">
-                                Phones
-                            </a>
-                        </li>
-
-                        <li class="nav-item ">
-                            <a href="{{ route('service.index') }}" class="nav-link js-scroll-trigger">
-                                Services
-                            </a>
-                        </li>
-
-                        <li class="nav-item ">
-                            <a href="{{ route('phone_service.index') }}" class="nav-link">
-                                Management
-                            </a>
-                        </li>
-
+                        @can('export models')
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarWelcome" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Import/Export
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarWelcome">
+                                    <a class="dropdown-item " href="{{URL::to('phone-export')}}">
+                                        Export Phones
+                                    </a>
+                                    <a class="dropdown-item " href="{{URL::to('service-export')}}">
+                                        Export Services
+                                    </a>
+                                    @can('import models')
+                                        <a class="dropdown-item " href="{{URL::to('phone-import')}}">
+                                            Import Phones
+                                        </a>
+                                        <a class="dropdown-item " href="{{URL::to('service-import')}}">
+                                            Import Services
+                                        </a>
+                                    @endcan
+                                </div>
+                            </li>
+                        @endcan
                         <li class="nav-item ">
                             <a href="{{route('about')}}" class="nav-link js-scroll-trigger">
                                 About
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarWelcome" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Import/Export
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarWelcome">
-                                 <a class="dropdown-item " href="{{URL::to('phone-export')}}">
-                                    Export Phones
-                                </a>
-                                <a class="dropdown-item " href="{{URL::to('service-export')}}">
-                                    Export Services
-                                </a>
-                                <a class="dropdown-item " href="{{URL::to('phone-import')}}">
-                                    Import Phones
-                                </a>
-                                <a class="dropdown-item " href="{{URL::to('service-import')}}">
-                                    Import Services
-                                </a>
-                            </div>
-                        </li>
+
                     </ul>
 
                     <ul class="ml-lg-auto list-unstyled m-0">

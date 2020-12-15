@@ -47,15 +47,17 @@ class ServicesImport implements
                 'code' => $row['code'],
                 'name' => $row['name'],
                 'description' => $row['description'],
+                'keyword' => $row['keyword']
             ]);
     }
 
     public function rules(): array
     {
         return [
-            '*.code' => ['required', 'unique:services,code', 'present', 'filled'],
-            '*.name' => ['required','present'],
-            '*.description' => ['required','present'],
+            '*.code' => ['required', 'unique:services,code'],
+            '*.name' => ['required'],
+            '*.description' => ['required'],
+            '*.keyword' => ['required']
         ];
     }
 
@@ -71,8 +73,8 @@ class ServicesImport implements
         return 1000;
     }
 
-    /** @return int  */
-    public function headingRow(): int {
-        return 1;
-    }
+    // /** @return int  */
+    // public function headingRow(): int {
+    //     return 1;
+    // }
 }

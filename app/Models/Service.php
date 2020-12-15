@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
-
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Service extends Model
 {
-    use HasFactory, Sortable, SoftDeletes;
+    use HasFactory, Sortable, SoftDeletes, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +22,12 @@ class Service extends Model
         'code',
         'name',
         'description',
+        'keyword',
     ];
+
+    protected static $logName = 'ServiceTable';
+
+    protected static $logAttributes = ['code', 'name', 'description', 'keyword'];
 
     /**
      * The attributes that should be cast to native types.
@@ -37,7 +42,8 @@ class Service extends Model
         'code',
         'name',
         'description',
-        'updated_at'
+        'updated_at',
+        'keyword',
     ];
 
     /**

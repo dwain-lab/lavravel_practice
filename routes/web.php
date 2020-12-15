@@ -38,7 +38,7 @@ Auth::routes();
 
 // Route::get('/phone', 'App\Http\Controllers\PhoneController');
 
-// Route::group(['middleware' => ['verified']], function () {
+Route::group(['middleware' => ['verified']], function () {
 
     Route::get('/search', 'App\Http\Controllers\PostController@search')->name('search');
 
@@ -80,7 +80,7 @@ Auth::routes();
 
     Route::post('/service-import', 'App\Http\Controllers\ServiceController@serviceImportStore')->name('service.import-store');
 
-// });
+});
 
 /*
 |--------------------------------------------------------------------------

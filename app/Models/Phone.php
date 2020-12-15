@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
-
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Phone extends Model
 {
-    use HasFactory, Sortable, SoftDeletes;
+    use HasFactory, Sortable, SoftDeletes, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +20,10 @@ class Phone extends Model
     protected $fillable = [
         'number',
     ];
+
+    protected static $logName = 'PhoneTable';
+
+    protected static $logAttributes = ['number'];
 
     /**
      * The attributes that should be cast to native types.

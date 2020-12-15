@@ -83,10 +83,9 @@
                         <?php $services = $phone->services->sortBy('name'); ?>
                     @foreach( $services as $service)
                     {!! Form::open(['route' => ['phone_service.destroy', $service->pivot->phone_id, $service->pivot->service_id], 'method' => 'post']) !!}
-                        @can('delete models')
-                            {!! Form::button('<i class="fa fa-window-close" >' . $service->name.'</i>', ['class' => 'btn btn-primary', 'type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete the service tag '. $service->name.'?\')', 'style' => 'padding: revert']) !!}
+                        @can('view models')
+                            {!! Form::button('<i class="fa fa-window-close" >' . $service->name.'</i>', ['class' => 'btn btn-primary', 'type' => 'submit', 'title' => 'delete '.$service->name ,'onclick' => 'return confirm(\'Are you sure you want to delete the service tag '. $service->name.'?\')', 'style' => 'padding: revert']) !!}
                         @endcan
-
                         {{-- <button type="button" class="btn btn-primary" style="padding: revert"> <i class="fa fa-window-close"> {{ $service->name }}</i></button> --}}
                         {{-- <a href="{{ 'route'('phone_service.destroy', [$service->pivot->phone_id, $service->pivot->service_id]) }}" title="destroy" class="">
                             <i class="fa fa-window-close"> {{ $service->name }}</i>
@@ -104,7 +103,7 @@
                     @endcan --}}
 
                     @can('edit models')
-                    <a href="{{ route('phone_service.edit', $phone->id) }}" class="crud-spacing">
+                    <a href="{{ route('phone_service.edit', $phone->id) }}" class="crud-spacing" title= "edit">
                         <i class="fas fa-edit  fa-lg"></i>
                     </a>
                     @endcan
@@ -112,7 +111,7 @@
                     @can('delete models')
                     {{-- @method('post') --}}
                         {!! Form::open(['route' => ['phone_service.destroyAll', $phone->id], 'method' => 'post', 'style' => 'display: contents;']) !!}
-                            {!! Form::button('<i class="fas fa-trash fa-lg text-danger"></i>', ['type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete all association with phone number '. $phone->number.'?\')', 'style' => 'border: none; background-color:transparent;']) !!}
+                            {!! Form::button('<i class="fas fa-trash fa-lg text-danger"></i>', ['type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete all association with phone number '. $phone->number.'?\')', 'style' => 'border: none; background-color:transparent;', 'title' => 'Delete All Service Tags']) !!}
                         {!! Form::close() !!}
                     @endcan
             </td>

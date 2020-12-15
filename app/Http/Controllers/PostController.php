@@ -11,6 +11,7 @@ class PostController extends Controller
 {
 
 
+    /** @return void  */
     function __construct()
     {
         $this->middleware('permission:view models|edit models|delete models|create models', ['only' => ['index','show','search']]);

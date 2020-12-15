@@ -54,7 +54,7 @@
     <h2 class="mb-4">
         CSV to Import
     </h2>
-
+@can('import models')
     {!! Form::open(['route' => ['phone.import-store'], 'method' => 'post', 'files' => true]) !!}
      {{-- <form action="{{ route('phone.import-store') }}" method="POST" enctype="multipart/form-data"> --}}
          {{-- csrf --}}
@@ -68,6 +68,7 @@
                 {!! Form::button('Import Data', ['type' => 'submit','class'=>'btn btn-primary']) !!}
     {!! Form::close() !!}
     </form>
+@endcan
 </div>
 
 @endsection

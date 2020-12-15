@@ -6,6 +6,8 @@
 
 @section('content')
 
+@can('create models')
+
 <div style="width: 100%; display:flex;">
     @can('create models')
             <div class="search-inline">
@@ -56,11 +58,16 @@
                 <strong>{!! Form::label('description', 'Service Description') !!}</strong>
                 {!! Form::text('description', null, ['placeholder'=>'Enter Service Description', 'class'=>'form-control']) !!}
             </div>
+            <div class="form-group">
+                <strong>{!! Form::label('keyword', 'Keyword') !!}</strong>
+                {!! Form::text('keyword', null, ['placeholder'=>'Enter Keyword', 'class'=>'form-control']) !!}
+            </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            {!! Form::button('Save', ['type' => 'submit', 'class'=>'btn btn-primary']) !!}
+            {!! Form::button('Save', ['type' => 'submit', 'class'=>'btn btn-primary', 'title'=> 'Save']) !!}
         </div>
     </div>
 {!! Form::close() !!}
 
+@endcan
 @endsection

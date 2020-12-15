@@ -37,6 +37,7 @@
     </div>
 @endif
 
+@can('view models')
     <div style="width: 100%; display:flex;">
 @can('create models')
         <div class="search-inline">
@@ -51,9 +52,11 @@
         <div class="search-inline">
             <a class="btn btn-primary" href="{{ route('service.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
         </div>
+@can('export models')
         <div class="search-inline">
-            <a class="btn btn-primary" href="{{ route('service.file-export') }}"><i class="fas fa-file-download "></i> </a>
+            <a class="btn btn-primary" href="{{ route('service.file-export') }}", title="Export"><i class="fas fa-file-download "></i> </a>
         </div>
+@endcan
             <!-- Search form -->
         <div class="search-inline" style="width: 100%; display:grid">
             {!! Form::open(['route' => 'search-service', 'method' => 'get', 'class' => 'form-contorl form-control-search']) !!}
@@ -72,6 +75,7 @@
         <th> @sortablelink('code' , 'Service Code') </th>
         <th> @sortablelink('name' , 'Service Name') </th>
         <th> @sortablelink('description' , 'Service Description') </th>
+        <th> @sortablelink('keyword' , 'Keyword') </th>
         <th> @sortablelink('updated_at', 'Date Updated') </th>
         <th width="280px">Action</th>
     </tr>
@@ -81,6 +85,7 @@
             <td>{{ $service->code }}</td>
             <td>{{ $service->name }}</td>
             <td>{{ $service->description }}</td>
+            <td>{{ $service->keyword }}</td>
             <td>{{ $service->updated_at->diffForHumans() }}</td>
             <td>
                     {!! Form::open(['route' => ['service.destroy', $service->id], 'method' => 'post']) !!}
@@ -90,14 +95,14 @@
                         </a>
                     @endcan
                     @can('edit models')
-                        <a href="{{ route('service.edit', $service->id) }}" class="crud-spacing">
+                        <a href="{{ route('service.edit', $service->id) }}" class="crud-spacing" title="edit">
                             <i class="fas fa-edit  fa-lg"></i>
                         </a>
                     @endcan
 
                     @can('delete models')
                     @method('DELETE')
-                        {!! Form::button('<i class="fas fa-trash fa-lg text-danger"></i>', ['type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete the service name '. $service->name.'?\')', 'style' => 'border: none; background-color:transparent;']) !!}
+                        {!! Form::button('<i class="fas fa-trash fa-lg text-danger"></i>', ['type' => 'submit', 'onclick' => 'return confirm(\'Are you sure you want to delete the service name '. $service->name.'?\')', 'style' => 'border: none; background-color:transparent;','title' => 'delete']) !!}
                     @endcan
                     {!! Form::close() !!}
             </td>
@@ -106,5 +111,6 @@
     </table>
 
     {!! $services->appends(\Request::except('page'))->render('pagination::bootstrap-4') !!}
+@endcan
 
 @endsection

@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                {!! Form::button('Update', ['type' => 'submit', 'class'=>'btn btn-primary']) !!}
+                {!! Form::button('Update', ['type' => 'submit', 'class'=>'btn btn-primary', 'title' => 'update']) !!}
             </div>
         </div>
 

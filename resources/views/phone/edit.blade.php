@@ -6,6 +6,7 @@
 
 @section('content')
 
+@can('edit models')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -27,14 +28,13 @@
         </ul>
     </div>
 @endif
-
     {!! Form::open(['route' => ['phone.update', $phone->id], 'method' => 'patch']) !!}
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>{!! Form::label('number', 'Phone Number') !!}</strong>
-                    {!! Form::text('number', $phone->number, ['placeholder'=>'Enter Title', 'class'=>'form-control', 'readonly']) !!}
+                    {!! Form::text('number', $phone->number, ['placeholder'=>'Enter Title', 'class'=>'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -43,5 +43,5 @@
         </div>
 
     {!! Form::close() !!}
-
+@endcan
 @endsection

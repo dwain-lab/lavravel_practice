@@ -6,6 +6,8 @@
 
 @section('content')
 
+@can('view models')
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -31,5 +33,5 @@
         </div>
     </div>
 </div>
-
+@endcan
 @endsection

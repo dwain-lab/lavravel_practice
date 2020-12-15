@@ -21,6 +21,17 @@ use function PHPUnit\Framework\isFalse;
 
 class PhoneController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:view models|edit models|delete models|create models', ['only' => ['index','show','search','searchPhoneService','listPhoneService','searchPhone']]);
+        $this->middleware('permission:create models', ['only' => ['create','store','phone_serviceStore','createPhoneService']]);
+        $this->middleware('permission:edit models', ['only' => ['edit','update','phone_serviceUpdate','phone_serviceEdit']]);
+        $this->middleware('permission:delete models', ['only' => ['destroy','phone_serviceDeleteAllServiceAttached', 'destroyPhoneService']]);
+        $this->middleware('permission:export models', ['only' => ['fileExport']]);
+        $this->middleware('permission:import models', ['only' => ['fileExport', 'phoneImportStore','phoneImportUpload']]);
+
+    }
     /**
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -148,6 +159,13 @@ class PhoneController extends Controller
         return view('phone_service.index', compact('phones'));
     }
 
+    /**
+     * @param mixed $number
+     * @param mixed $service
+     * @return RedirectResponse
+     * @throws BindingResolutionException
+     * @throws RouteNotFoundException
+     */
     public function destroyPhoneService($number,$service)
     {
         $phone = Phone::findOrFail($number);
@@ -269,6 +287,12 @@ class PhoneController extends Controller
         ->with('error', 'Something went wrong.  Please try again...');
     }
 
+    /**
+     * @param mixed $phone
+     * @return RedirectResponse
+     * @throws BindingResolutionException
+     * @throws RouteNotFoundException
+     */
     public function phone_serviceDeleteAllServiceAttached($phone)
     {
         $phone = Phone::findOrFail($phone);
@@ -332,13 +356,13 @@ class PhoneController extends Controller
         ];
 
 
-    $customMessages = [
-        'mimes' => 'File must be type CSV only.',
-        'required' => 'Please insert file and try again.',
-        'max' => 'File needs to be bigger than 2 megabytes',
-    ];
+        $customMessages = [
+            'mimes' => 'File must be type CSV only.',
+            'required' => 'Please insert file and try again.',
+            'max' => 'File needs to be bigger than 2 megabytes',
+        ];
 
-    $this->validate($request, $rules, $customMessages);
+        $this->validate($request, $rules, $customMessages);
 
         $path = $request->file('file')->path();
         $fileObj = new splFileObject($path, 'r');
@@ -371,13 +395,5 @@ class PhoneController extends Controller
     public function fileExport()
     {
         return new PhonesExport;
-    }
-
-        /** @return array  */
-        public function messages()
-    {
-        return [
-            'file.mimes' => 'File input must be CSV only',
-        ];
     }
 }
