@@ -19,17 +19,20 @@ class CheckStatus
     {
         // dd(auth()->user());
         if(!$request->user()) {
-            return redirect('login')->withErrors('Please log into the application.');
+            return redirect()->route('login')
+                ->with('LogMessage', 'Please login into the application');
         }
-        else if ($request->user()->active == 1) {
+        if ($request->user()->active == 1) {
             return $next($request);
         }
+
         Auth::logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('login')->withErrors('Inactive user.');
+        return redirect()->route('login')
+            ->with('LogMessage', 'Inactive user!!!');
     }
 }

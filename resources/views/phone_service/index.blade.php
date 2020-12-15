@@ -80,7 +80,7 @@
         <tr>
             <td>{{ $phone->number }}</td>
             <td>
-                    <div class="btn-group">
+                    <div class="btn-group" style="display: flex;flex-wrap: wrap;">
                         <?php $services = $phone->services->sortBy('name'); ?>
                     @foreach( $services as $service)
                     {!! Form::open(['route' => ['phone_service.destroy', $service->pivot->phone_id, $service->pivot->service_id], 'method' => 'post']) !!}

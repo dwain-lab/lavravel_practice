@@ -1,14 +1,9 @@
 @extends('layouts.app')
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There was a problem with logging you into the system.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+@if ($message = Session::get('LogMessage'))
+<div class="alert alert-danger">
+    <p style="font-size: 25px; text-align:center">{{ $message }}</p>
+</div>
 @endif
 
 @section('content')
